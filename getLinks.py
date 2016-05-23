@@ -136,4 +136,7 @@ def addPathEnd(url):
      return url
 
 
-#Test run getAllLinks('http://bryanadams.com')
+#Testing 
+#getAllLinks('http://domain.com',1000)
+#getAllLinks('http://bryanadams.com')
+#getAllLinks('http://python.org/',100)
