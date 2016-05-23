@@ -21,33 +21,37 @@ def getAllLinks(url,max_count):
 
         url = urls.pop(0)
         domain = urllib.parse.urlparse(url)[1]
-        request = requests.get(url)
 
-        if request.status_code == 200:
-            max_count -= 1
-            print("Current link being crawled",url,request.status_code)
-            totalLinksCrawled.append(url)
-            sourceCode = BeautifulSoup(request.text, "html.parser")
-            for link in sourceCode('a',href=True):
+        try:
+            request = requests.get(url)
 
-                link['href'] = urllib.parse.urljoin(url,link['href'])
+            if request.status_code == 200:
+                max_count -= 1
+                print("Current link being crawled",url,request.status_code)
+                totalLinksCrawled.append(url)
+                sourceCode = BeautifulSoup(request.text, "html.parser")
+                for link in sourceCode('a',href=True):
 
-                #check to append path or not, else possibility of duplicate crawl
-                link['href'] = addPathEnd(link['href'])
-                curr.append(link['href'])
+                    link['href'] = urllib.parse.urljoin(url,link['href'])
 
-                #check if link is of the same domain and has not been crawled previously
-                if domain in link['href'] and link['href'] not in ref and max_count > 0:
-                    urls.append(link['href'])
-                    ref.append(link['href'])
-                    print('stack length',len(urls),' |url being added :',link['href'])
+                    #check to append path or not, else possibility of duplicate crawl
+                    link['href'] = addPathEnd(link['href'])
+                    curr.append(link['href'])
 
-            file = open(getFileName(url,folderName),'w')
-            writeFile(file,curr)
-            curr.clear()
-        else:
-            print('Unable to open url',url,'Reponse code :',request.status_code)
+                    #check if link is of the same domain and has not been crawled previously
+                    if domain in link['href'] and link['href'] not in ref and 'mailto:' not in link['href'] and max_count > 0:
+                        urls.append(link['href'])
+                        ref.append(link['href'])
+                        print('stack length',len(urls),' |url being added :',link['href'])
 
+                file = open(getFileName(url,folderName),'w')
+                writeFile(file,curr)
+                curr.clear()
+            else:
+                print('Unable to open url',url,'Reponse code :',request.status_code)
+        except requests.exceptions.RequestException as e:
+            print('Unable to get URL',e)
+            pass
     print("links crawled = ",len(totalLinksCrawled))
 
 @dispatch(str)
@@ -61,32 +65,37 @@ def getAllLinks(url):
 
         url = urls.pop(0)
         domain = urllib.parse.urlparse(url)[1]
-        request = requests.get(url)
+        try:
+            request = requests.get(url)
 
-        if request.status_code == 200:
-            print("Current link being crawled",url,request.status_code)
-            totalLinksCrawled.append(url)
-            sourceCode = BeautifulSoup(request.text, "html.parser")
-            for link in sourceCode('a',href=True):
+            if request.status_code == 200:
+                print("Current link being crawled",url,request.status_code)
+                totalLinksCrawled.append(url)
+                sourceCode = BeautifulSoup(request.text, "html.parser")
+                for link in sourceCode('a',href=True):
 
-                link['href'] = urllib.parse.urljoin(url,link['href'])
+                    link['href'] = urllib.parse.urljoin(url,link['href'])
 
-                #check to append path or not, else possibility of duplicate crawl
-                link['href'] = addPathEnd(link['href'])
-                curr.append(link['href'])
+                    #check to append path or not, else possibility of duplicate crawl
+                    link['href'] = addPathEnd(link['href'])
+                    curr.append(link['href'])
 
-                #check if link is of the same domain and has not been crawled previously
-                if domain in link['href'] and link['href'] not in ref and 'mailto:' not in link['href']:
-                    urls.append(link['href'])
-                    ref.append(link['href'])
-                    print('stack length',len(urls),' |url being added :',link['href'])
+                    #check if link is of the same domain and has not been crawled previously
+                    if domain in link['href'] and link['href'] not in ref and 'mailto:' not in link['href']:
+                        urls.append(link['href'])
+                        ref.append(link['href'])
+                        print('stack length',len(urls),' |url being added :',link['href'])
 
-            file = open(getFileName(url,folderName),'w')
-            writeFile(file,curr)
-            curr.clear()
+                file = open(getFileName(url,folderName),'w')
+                writeFile(file,curr)
+                curr.clear()
 
-        else:
-           print('Unable to open url',url,'Reponse code :',request.status_code)
+            else:
+                print('Unable to open url',url,'Reponse code :',request.status_code)
+
+        except requests.exceptions.RequestException as e:
+            print('Unable to get URL',e)
+            pass
 
     print("links crawled = ",len(totalLinksCrawled))
 
@@ -119,7 +128,10 @@ def createFolder(url):
     except BaseException:
         print('Invalid URL')
         pass
+
+#mandatory check at the end of link to add path, to avoid duplication.
 def addPathEnd(url):
      if url[-1] is not '/':
          url += '/'
      return url
+
