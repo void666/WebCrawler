@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 import re
 from multipledispatch import dispatch
 import os
+import argparse
 
 curr = []#list of all current crawls
 urls = [] #urls that needed to be crawled
@@ -135,3 +136,14 @@ def addPathEnd(url):
          url += '/'
      return url
 
+#main function for command line input
+if __name__ == '__main__':
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("url" ,help =' Enter valid URL to be crawled',type = str)
+    parser.add_argument("-m","--maxLinks", type = int, help="Enter max links to crawled (optional)")
+    args = parser.parse_args()
+    if args.maxLinks:
+        getAllLinks(args.url,args.maxLinks)
+    else:
+        getAllLinks(args.url)
