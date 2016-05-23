@@ -33,3 +33,9 @@ eg :
 
  - BeautifulSoup (https://www.crummy.com/software/BeautifulSoup/bs4/doc/)
  - Requests for Humans (https://pypi.python.org/pypi/requests/)
+ 
+Test results  : 
+  >getAllLinks('http://python.org',100):
+  >https://gist.github.com/void666/598c436f6f0e2cf671de5fa5a5d50036
+  >getAllLinks('http://bryanadams.com')
+  >https://gist.github.com/void666/d22b4e56852f90eae4023d96b94c3dbf
