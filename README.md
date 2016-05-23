@@ -7,13 +7,24 @@
 
 
 
-Files -
+###Files -
 
-getLinks.py --  the functions can be called in the following way within the file
-Usage :   getAllLinks(url) or getAllLinks(url,max_urls_needed_to_be_crawled)
+####getLinks.py 
+  the functions can be called in the following way within the file 
+  >Usage :   getAllLinks(url) or getAllLinks(url,max_urls_needed_to_be_crawled)
+  
+eg : 
 
-eg : getAllLinks('http://python.org') or getAllLinks('http://python.org/',1000)
+    getAllLinks('http://python.org',100)
+    getAllLinks('http://www.bryanadams.com/')
+    getAllLinks('http://avoidgeek.com/',1000)
+  
+####getLinksMain.py
+independent crawler file with command line argument input
+>Usage : getLinksMain.py [-h] url [-m,--maxLinks]
 
-getLinksMain.py -- independent crawler file with command line argument input
-Usage : getLinksMain.py [-h] url [-m,--maxLinks]
-eg : getLinksMain.py http://python.org/ -m 100
+eg : 
+
+    getLinksMain.py http://python.org/ -m 100
+    getLinksMain.py http://domain.com/
+    getLinksMain.py http://avoidgeek.com/ -m 1000
