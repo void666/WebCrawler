@@ -4,7 +4,6 @@ from bs4 import BeautifulSoup
 import re
 from multipledispatch import dispatch
 import os
-import argparse
 
 curr = []#list of all current crawls
 urls = [] #urls that needed to be crawled
