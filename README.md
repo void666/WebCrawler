@@ -37,5 +37,12 @@ eg :
 Test results  : 
   >getAllLinks('http://python.org',100):
   >https://gist.github.com/void666/598c436f6f0e2cf671de5fa5a5d50036
+  >
   >getAllLinks('http://bryanadams.com')
   >https://gist.github.com/void666/d22b4e56852f90eae4023d96b94c3dbf
+  >
+  >getLinksMain.py http://www.bryanadams.com/
+  >https://gist.github.com/void666/da0c2e00c31e0e1800c4072ac76ad3b1
+  >
+  >getLinksMain.py http://python.org/ -m 100
+  >https://gist.github.com/void666/9f3d6e8041678abf6c586f9d62835bac
