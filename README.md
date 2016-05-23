@@ -28,3 +28,8 @@ eg :
     getLinksMain.py http://python.org/ -m 100
     getLinksMain.py http://domain.com/
     getLinksMain.py http://avoidgeek.com/ -m 1000
+
+### libraries used:
+
+ - BeautifulSoup (https://www.crummy.com/software/BeautifulSoup/bs4/doc/)
+ - Requests for Humans (https://pypi.python.org/pypi/requests/)
