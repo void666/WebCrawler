@@ -1,6 +1,6 @@
 # WebCrawler
 
-1. Itarative crawler for domain specific crawling.
+1. Iterative crawler for domain specific crawling.
 2. Creates a directory with domain name in local path and adds all the URLS that has been visited as individual text files. 
 3. The crawler writes all the available URLS in the file (named as the link that is being crawled), however, recursively crawls only the ones which has not been crawled earlier, results in 200 HTTPResponse code and is a part of the present URL being crawled (sub domain or directory of the same URL) 
 4. Displays the URLs that are not responding or has HTTP errors and unable to open them on console.
